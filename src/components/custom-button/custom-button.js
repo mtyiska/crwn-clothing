@@ -4,17 +4,18 @@ import "./custom-button.scss";
 export default function CustomButton({
   children,
   isGoogleSignIn,
+  inverted,
   ...otherProps
 }) {
   return (
-    <div>
-      <button
-        type="button"
-        className={`${isGoogleSignIn ? "google-sign-in" : ""} custom-button`}
-        {...otherProps}
-      >
-        {children}
-      </button>
-    </div>
+    <button
+      type="button"
+      className={`${inverted ? "invreted" : ""} ${
+        isGoogleSignIn ? "google-sign-in" : ""
+      } custom-button`}
+      {...otherProps}
+    >
+      {children}
+    </button>
   );
 }

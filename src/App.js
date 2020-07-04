@@ -1,5 +1,10 @@
 import React, { Component } from "react";
-import { Route, BrowserRouter as Switch, Redirect } from "react-router-dom";
+import {
+  Route,
+  BrowserRouter as Router,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import ShopPage from "./pages/shop/Shop";
 import Header from "./components/header/header";
@@ -36,11 +41,11 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <Router>
         <Header />
         <Switch>
           <Route exact path="/" component={HomePage} />
-          <Route path="/shop" component={ShopPage} />
+          <Route exact path="/shop" component={ShopPage} />
           <Route
             exact
             path="/signin"
@@ -53,7 +58,7 @@ class App extends Component {
             }
           />
         </Switch>
-      </div>
+      </Router>
     );
   }
 }
