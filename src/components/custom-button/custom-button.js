@@ -9,6 +9,7 @@ export default function CustomButton({
   return (
     <div>
       <button
+        type="button"
         className={`${isGoogleSignIn ? "google-sign-in" : ""} custom-button`}
         {...otherProps}
       >
