@@ -19,7 +19,13 @@ function Header({ currentUser }) {
           CONTACT
         </Link>
         {currentUser ? (
-          <div className="option" onClick={() => auth.signOut()}>
+          <div
+            className="option"
+            onClick={() => {
+              auth.signOut();
+              console.log(currentUser);
+            }}
+          >
             SIGN OUT
           </div>
         ) : (

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route, BrowserRouter as Router } from "react-router-dom";
+import { Route, BrowserRouter as Switch, Redirect } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import ShopPage from "./pages/shop/Shop";
 import Header from "./components/header/header";
@@ -25,7 +25,7 @@ class App extends Component {
           });
         });
       } else {
-        setCurrentUser({ userAuth });
+        setCurrentUser(userAuth);
       }
     });
   }
@@ -36,18 +36,34 @@ class App extends Component {
 
   render() {
     return (
-      <Router>
-        <Route path="/" component={Header} />
-        <Route exact path="/" component={HomePage} />
-        <Route path="/shop" component={ShopPage} />
-        <Route path="/signin" component={SignInAndSignUpPage} />
-      </Router>
+      <div>
+        <Header />
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route path="/shop" component={ShopPage} />
+          <Route
+            exact
+            path="/signin"
+            render={() =>
+              this.props.currentUser ? (
+                <Redirect to="/" />
+              ) : (
+                <SignInAndSignUpPage />
+              )
+            }
+          />
+        </Switch>
+      </div>
     );
   }
 }
 
+//get user
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser,
+});
 //here we are calling the action and passing it the user
 const mapDispatchToProps = (dispatch) => ({
   setCurrentUser: (user) => dispatch(setCurrentUser(user)),
 });
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
